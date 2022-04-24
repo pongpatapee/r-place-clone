@@ -15,8 +15,10 @@ for(let i = 0; i < CANVAS_ROWS; i++) {
 }
 
 app.use(express.static('public'))
+console.log('Server has started!');
 
 io.on('connection', socket => {
+    console.log('A new user has joined!');
     //on connection send the canvas to the client that just connected
     socket.emit('canvas', canvas);
     //when client send data for x, y, and color, store it in our "database" and emit the canvas back to every client in the serv

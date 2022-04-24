@@ -16,14 +16,27 @@ window.onload = function() {
 
     submitBtn = document.getElementById('submit');
 
-    function place_tile() {
+    function place_tile(x, y) {
         socket.emit("color", {
-            col: parseInt(document.getElementById('x-coord').value),
-            row: parseInt(document.getElementById('y-coord').value),
+            col: x,
+            row: y,
             color: (document.getElementById('color').value),
         });
-        console.log('Tile placed!');
+        console.log(`Tile placed at ${x}, ${y}!`);
     }
 
-    submitBtn.addEventListener('click', place_tile);
+    submitBtn.addEventListener('click', ()=> {
+        let x = parseInt(document.getElementById('x-coord').value);
+        let y = parseInt(document.getElementById('y-coord').value);
+
+        place_tile(x, y);
+    });
+    canvas.addEventListener('click', (e)=>{
+        let h = 10;
+        let w = 10;
+        
+        let x = parseInt(e.offsetX / w);
+        let y = parseInt(e.offsetY / h);
+        place_tile(x + 1, y + 1);
+    })
 }
